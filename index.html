@@ -424,7 +424,7 @@
     const phone = document.getElementById('o-phone').value.trim();
     const date = document.getElementById('o-date').value;
     const hasItem = ['o-item1','o-item2','o-item3','o-item4','o-item5'].some(id => document.getElementById(id).value !== '');
-    if (!name  !phone  !date || !hasItem) {
+    if (!name || !phone || !date || !hasItem) {
       alert('Please fill in your name, phone, at least one item, and a pickup/delivery date.');
       return;
     }
