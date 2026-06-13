@@ -423,57 +423,30 @@
     const name = document.getElementById('o-name').value.trim();
     const phone = document.getElementById('o-phone').value.trim();
     const date = document.getElementById('o-date').value;
-    const hasItem = ['o-item1','o-item2','o-item3','o-item4','o-item5'].some(id => document.getElementById(id).value !== '');
+    const hasItem = ['o-item1','o-item2','o-item3','o-item4','o-item5'].some(function(id) { return document.getElementById(id).value !== ''; });
     if (!name || !phone || !date || !hasItem) {
       alert('Please fill in your name, phone, at least one item, and a pickup/delivery date.');
       return;
     }
     const items = [];
-    for (let i = 1; i <= 5; i++) {
-      const item = document.getElementById('o-item' + i).value;
-      const qty = document.getElementById('o-qty' + i).value;
+    for (var i = 1; i <= 5; i++) {
+      var item = document.getElementById('o-item' + i).value;
+      var qty = document.getElementById('o-qty' + i).value;
       if (item) items.push(item + ' x' + qty);
     }
     await fetch('https://formspree.io/f/xykabjrn', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name, phone, date,
-        items: items.join(', '),
-        type: document.getElementById('o-type').value,
-        notes: document.getElementById('o-notes').value
-      })
+      body: JSON.stringify({ name: name, phone: phone, date: date, items: items.join(', '), type: document.getElementById('o-type').value, notes: document.getElementById('o-notes').value })
     });
-    const msg = document.getElementById('order-success');
-    msg.style.display = 'block';
-    msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById('order-success').style.display = 'block';
     document.getElementById('o-name').value = '';
     document.getElementById('o-phone').value = '';
     document.getElementById('o-date').value = '';
     document.getElementById('o-notes').value = '';
-    for (let i = 1; i <= 5; i++) {
-      document.getElementById('o-item' + i).selectedIndex = 0;
-      document.getElementById('o-qty' + i).value = 1;
-    }
-  }
-    const name = document.getElementById('o-name').value.trim();
-    const phone = document.getElementById('o-phone').value.trim();
-    const date = document.getElementById('o-date').value;
-    const hasItem = ['o-item1','o-item2','o-item3','o-item4','o-item5'].some(id => document.getElementById(id).value !== '');
-    if (!name || !phone || !date || !hasItem) {
-      alert('Please fill in your name, phone, at least one item, and a pickup/delivery date.');
-      return;
-    }
-    const msg = document.getElementById('order-success');
-    msg.style.display = 'block';
-    msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    document.getElementById('o-name').value = '';
-    document.getElementById('o-phone').value = '';
-    document.getElementById('o-date').value = '';
-    document.getElementById('o-notes').value = '';
-    for (let i = 1; i <= 5; i++) {
-      document.getElementById('o-item' + i).selectedIndex = 0;
-      document.getElementById('o-qty' + i).value = 1;
+    for (var j = 1; j <= 5; j++) {
+      document.getElementById('o-item' + j).selectedIndex = 0;
+      document.getElementById('o-qty' + j).value = 1;
     }
   }
 </script>
