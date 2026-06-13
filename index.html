@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nelson's Lechon Ulo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --flame:    #C93B1A;
+    --ember:    #E8651A;
+    --gold:     #D4A843;
+    --charcoal: #1C1410;
+    --smoke:    #2E2318;
+    --cream:    #FDF6EC;
+    --tan:      #F5E8D0;
+    --text:     #3A2E22;
+    --muted:    #7A6A58;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5%;
+    background: rgba(28,20,16,0.92);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--gold); letter-spacing: 0.04em; text-decoration: none; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: #e8ddd0; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; place-items: center; text-align: center;
+    padding: 120px 5% 80px;
+    position: relative; overflow: hidden;
+    background: var(--charcoal);
+  }
+  .hero::before {
+    content: ''; position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 400px;
+    background: radial-gradient(ellipse at 50% 80%, rgba(201,59,26,0.45) 0%, rgba(232,101,26,0.15) 45%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow { display: inline-block; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember); margin-bottom: 20px; font-weight: 600; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 900; line-height: 0.95; color: var(--cream); margin-bottom: 8px; }
+  .hero h1 em { font-style: italic; color: var(--gold); display: block; }
+  .hero-sub { font-family: 'Lora', serif; font-style: italic; color: #b0a090; font-size: 1.1rem; margin: 20px auto 40px; max-width: 440px; line-height: 1.6; }
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--flame); color: #fff; padding: 14px 32px; border: none; border-radius: 3px; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.05em; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: var(--ember); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--cream); padding: 14px 32px; border: 1.5px solid rgba(255,255,255,0.3); border-radius: 3px; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.05em; cursor: pointer; text-decoration: none; transition: border-color 0.2s, color 0.2s; display: inline-block; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* SECTIONS */
+  section { padding: 96px 5%; }
+  .section-label { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--flame); font-weight: 600; margin-bottom: 12px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; margin-bottom: 18px; }
+  .section-intro { font-family: 'Lora', serif; font-style: italic; color: var(--muted); max-width: 540px; line-height: 1.7; margin-bottom: 56px; }
+
+  /* ABOUT */
+  .about { background: var(--tan); }
+  .about-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .about-flame-art { font-size: 9rem; line-height: 1; text-align: center; filter: drop-shadow(0 0 32px rgba(201,59,26,0.5)); }
+  .about p { font-size: 1.05rem; line-height: 1.75; color: var(--text); margin-bottom: 16px; }
+  .about-stats { display: flex; gap: 32px; margin-top: 32px; padding-top: 32px; border-top: 1px solid #d4c4a8; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: var(--flame); line-height: 1; }
+  .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; letter-spacing: 0.04em; }
+
+  /* MENU */
+  .menu { background: var(--cream); }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 28px; max-width: 1100px; margin: 0 auto; }
+  .menu-card { background: #fff; border-radius: 6px; overflow: hidden; border: 1px solid #e8ddd0; transition: transform 0.2s, box-shadow 0.2s; }
+  .menu-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(60,30,10,0.12); }
+  .menu-card-img {
+    height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+    background: var(--smoke);
+    overflow: hidden;
+  }
+  .menu-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .menu-card-body { padding: 20px 22px 24px; }
+  .menu-card-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+  .menu-card-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+  .menu-card-price { font-size: 1.1rem; font-weight: 700; color: var(--flame); font-family: 'Playfair Display', serif; }
+  .menu-tag { display: inline-block; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--tan); color: var(--muted); padding: 3px 8px; border-radius: 2px; margin-bottom: 10px; }
+
+  /* ORDER */
+  .order { background: var(--smoke); color: var(--cream); }
+  .order .section-title { color: var(--cream); }
+  .order .section-intro { color: #b0a090; }
+  .order-form { max-width: 640px; margin: 0 auto; display: grid; gap: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; width: 100%; }
+  .form-group label { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: #b0a090; font-weight: 600; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px; padding: 12px 14px; color: var(--cream);
+    font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; width: 100%;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--ember); }
+  .form-group select option { background: var(--smoke); }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+
+  /* Item rows */
+  .item-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end; background: rgba(255,255,255,0.04); border-radius: 6px; padding: 14px; border: 1px solid rgba(255,255,255,0.08); }
+  .item-row .form-group { margin: 0; }
+  .item-row .qty-group { width: 80px; }
+  .item-row .qty-group input { width: 80px; text-align: center; }
+  .items-label { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: #b0a090; font-weight: 600; }
+
+  .form-submit { background: var(--flame); color: #fff; border: none; border-radius: 4px; padding: 16px; font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; cursor: pointer; transition: background 0.2s; width: 100%; }
+  .form-submit:hover { background: var(--ember); }
+  .form-note { font-size: 0.8rem; color: #b0a090; text-align: center; }
+  .success-msg { display: none; background: rgba(212,168,67,0.15); border: 1px solid var(--gold); border-radius: 6px; padding: 18px 24px; color: var(--gold); text-align: center; font-weight: 600; font-size: 0.95rem; }
+
+  /* CONTACT */
+  .contact-strip { background: var(--charcoal); color: var(--cream); padding: 64px 5%; display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; text-align: center; }
+  .contact-item { flex: 1; min-width: 180px; max-width: 240px; }
+  .contact-icon { font-size: 2rem; margin-bottom: 12px; }
+  .contact-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .contact-value { font-size: 1rem; font-weight: 600; color: var(--cream); }
+
+  footer { background: #100c08; color: #6a5c4e; text-align: center; padding: 28px; font-size: 0.82rem; letter-spacing: 0.05em; }
+  footer span { color: var(--gold); }
+
+  @media (max-width: 700px) {
+    .about-inner { grid-template-columns: 1fr; gap: 32px; }
+    .about-flame-art { font-size: 5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    nav { padding: 14px 4%; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Nelson's Lechon Ulo</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#order">Order</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <span class="hero-eyebrow">Est. by Nelson — Fired with Tradition</span>
+    <h1>Nelson's<em>Lechon Ulo</em></h1>
+    <p class="hero-sub">Whole roasted pig heads and lechon classics, slow-cooked over live coals the old way. Every crack of the skin tells the story.</p>
+    <div class="hero-ctas">
+      <a href="#menu" class="btn-primary">See the Menu</a>
+      <a href="#order" class="btn-outline">Order Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-flame-art" aria-hidden="true">🔥</div>
+    <div>
+      <div class="section-label">Our Story</div>
+      <h2 class="section-title">Roasted Over Fire, Served with Pride</h2>
+      <p>Nelson's Lechon Ulo was born from one man's obsession with the perfect roast — crispy skin that shatters at first bite, meat so tender it falls from the bone. We specialize in lechon ulo (whole roasted pig head) and a full lineup of lechon classics.</p>
+      <p>We use traditional wood-fire pits, house-mixed spices stuffed deep inside, and no shortcuts. Whether it's a fiesta, a family reunion, or just a craving you can't ignore — we've got you covered.</p>
+      <div class="about-stats">
+        <div><div class="stat-num">100%</div><div class="stat-label">Wood-Fire Roasted</div></div>
+        <div><div class="stat-num">5+</div><div class="stat-label">Menu Items</div></div>
+        <div><div class="stat-num">★ 5</div><div class="stat-label">Customer Rating</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="section-label">What We Serve</div>
+  <h2 class="section-title">The Menu</h2>
+  <p class="section-intro">Every item is made to order. Call ahead for large orders — the fire needs time.</p>
+
+  <div class="menu-grid">
+
+    <div class="menu-card">
+      <div class="menu-card-img">
+        <img src="lechon-ulo.jpg" alt="Lechon Ulo" onerror="this.parentElement.innerHTML='🐷'"/>
+      </div>
+      <div class="menu-card-body">
+        <span class="menu-tag">Signature</span>
+        <div class="menu-card-name">Lechon Ulo</div>
+        <div class="menu-card-desc">Whole roasted pig head, slow-fired over live coals. Crispy skin, juicy cheeks, and the prized ear cartilage. Includes liver sauce. Price depends on kilo.</div>
+        <div class="menu-card-price">₱ 1,900 / kilo</div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <div class="menu-card-img">
+        <img src="lechon-belly.jpg" alt="Lechon Belly" onerror="this.parentElement.innerHTML='🥩'"/>
+      </div>
+      <div class="menu-card-body">
+        <span class="menu-tag">Classic</span>
+        <div class="menu-card-name">Lechon Belly</div>
+        <div class="menu-card-desc">Boneless pork belly rolled with lemongrass, garlic, and herbs. Roasted until the skin is glass-crisp.</div>
+        <div class="menu-card-price">₱ 1,200 / kg</div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <div class="menu-card-img">
+        <img src="lechon-kawali.jpg" alt="Lechon Kawali" onerror="this.parentElement.innerHTML='🍖'"/>
+      </div>
+      <div class="menu-card-body">
+        <span class="menu-tag">Classic</span>
+        <div class="menu-card-name">Lechon Kawali</div>
+        <div class="menu-card-desc">Boiled then deep-fried pork belly, golden and crackling. A weekday favorite served with spiced vinegar.</div>
+        <div class="menu-card-price">₱ 480</div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <div class="menu-card-img">🫙</div>
+      <div class="menu-card-body">
+        <span class="menu-tag">Side</span>
+        <div class="menu-card-name">House Liver Sauce</div>
+        <div class="menu-card-desc">Nelson's original thick liver sauce — tangy, savory, mildly sweet. Made fresh daily in small batches.</div>
+        <div class="menu-card-price">₱ 80 / cup</div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <div class="menu-card-img">🍶</div>
+      <div class="menu-card-body">
+        <span class="menu-tag">Side</span>
+        <div class="menu-card-name">Spiced Vinegar</div>
+        <div class="menu-card-desc">Nelson's wife's signature spiced vinegar — bright, flavorful, and boldly refreshing. Crafted fresh daily with onions and red peppers.</div>
+        <div class="menu-card-price">₱ 50 / 500ml bottle</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="order" id="order">
+  <div class="section-label">Place Your Order</div>
+  <h2 class="section-title">Order Online</h2>
+  <p class="section-intro">Fill out the form and we'll confirm your order by phone or message within 2 hours.</p>
+
+  <div class="order-form">
+    <div id="order-success" class="success-msg">🎉 Order received! We'll reach out shortly to confirm.</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="o-name">Full Name</label>
+        <input type="text" id="o-name" placeholder="Juan dela Cruz" />
+      </div>
+      <div class="form-group">
+        <label for="o-phone">Phone Number</label>
+        <input type="tel" id="o-phone" placeholder="09XX-XXX-XXXX" />
+      </div>
+    </div>
+
+    <div class="items-label">Items (up to 5)</div>
+
+    <div class="item-row">
+      <div class="form-group">
+        <label for="o-item1">Item 1</label>
+        <select id="o-item1">
+          <option value="">— Select an item —</option>
+          <option>Lechon Ulo — ₱1,900/kilo</option>
+          <option>Lechon Belly — ₱1,200/kg</option>
+          <option>Lechon Kawali — ₱480</option>
+          <option>House Liver Sauce — ₱80/cup</option>
+          <option>Spiced Vinegar — ₱50/500ml</option>
+        </select>
+      </div>
+      <div class="form-group qty-group">
+        <label for="o-qty1">Qty</label>
+        <input type="number" id="o-qty1" min="1" value="1" />
+      </div>
+    </div>
+
+    <div class="item-row">
+      <div class="form-group">
+        <label for="o-item2">Item 2</label>
+        <select id="o-item2">
+          <option value="">— Select an item —</option>
+          <option>Lechon Ulo — ₱1,900/kilo</option>
+          <option>Lechon Belly — ₱1,200/kg</option>
+          <option>Lechon Kawali — ₱480</option>
+          <option>House Liver Sauce — ₱80/cup</option>
+          <option>Spiced Vinegar — ₱50/500ml</option>
+        </select>
+      </div>
+      <div class="form-group qty-group">
+        <label for="o-qty2">Qty</label>
+        <input type="number" id="o-qty2" min="1" value="1" />
+      </div>
+    </div>
+
+    <div class="item-row">
+      <div class="form-group">
+        <label for="o-item3">Item 3</label>
+        <select id="o-item3">
+          <option value="">— Select an item —</option>
+          <option>Lechon Ulo — ₱1,900/kilo</option>
+          <option>Lechon Belly — ₱1,200/kg</option>
+          <option>Lechon Kawali — ₱480</option>
+          <option>House Liver Sauce — ₱80/cup</option>
+          <option>Spiced Vinegar — ₱50/500ml</option>
+        </select>
+      </div>
+      <div class="form-group qty-group">
+        <label for="o-qty3">Qty</label>
+        <input type="number" id="o-qty3" min="1" value="1" />
+      </div>
+    </div>
+
+    <div class="item-row">
+      <div class="form-group">
+        <label for="o-item4">Item 4</label>
+        <select id="o-item4">
+          <option value="">— Select an item —</option>
+          <option>Lechon Ulo — ₱1,900/kilo</option>
+          <option>Lechon Belly — ₱1,200/kg</option>
+          <option>Lechon Kawali — ₱480</option>
+          <option>House Liver Sauce — ₱80/cup</option>
+          <option>Spiced Vinegar — ₱50/500ml</option>
+        </select>
+      </div>
+      <div class="form-group qty-group">
+        <label for="o-qty4">Qty</label>
+        <input type="number" id="o-qty4" min="1" value="1" />
+      </div>
+    </div>
+
+    <div class="item-row">
+      <div class="form-group">
+        <label for="o-item5">Item 5</label>
+        <select id="o-item5">
+          <option value="">— Select an item —</option>
+          <option>Lechon Ulo — ₱1,900/kilo</option>
+          <option>Lechon Belly — ₱1,200/kg</option>
+          <option>Lechon Kawali — ₱480</option>
+          <option>House Liver Sauce — ₱80/cup</option>
+          <option>Spiced Vinegar — ₱50/500ml</option>
+        </select>
+      </div>
+      <div class="form-group qty-group">
+        <label for="o-qty5">Qty</label>
+        <input type="number" id="o-qty5" min="1" value="1" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="o-date">Pickup / Delivery Date</label>
+        <input type="date" id="o-date" />
+      </div>
+      <div class="form-group">
+        <label for="o-type">Delivery or Pickup?</label>
+        <select id="o-type">
+          <option>Pickup</option>
+          <option>Delivery (within area)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="o-notes">Special Instructions</label>
+      <textarea id="o-notes" placeholder="Extra crispy skin, no liver sauce, etc."></textarea>
+    </div>
+
+    <button class="form-submit" onclick="submitOrder()">Submit Order →</button>
+    <p class="form-note">Large orders need at least 2 days advance notice.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-strip" id="contact">
+  <div class="contact-item">
+    <div class="contact-icon">📍</div>
+    <div class="contact-label">Location</div>
+    <div class="contact-value">Rosal St. Santa Rosa II, Marilao<br>Bulacan, Philippines</div>
+  </div>
+  <div class="contact-item">
+    <div class="contact-icon">📞</div>
+    <div class="contact-label">Call or Text</div>
+    <div class="contact-value">0926-433-6509</div>
+  </div>
+  <div class="contact-item">
+    <div class="contact-icon">🕐</div>
+    <div class="contact-label">Hours</div>
+    <div class="contact-value">Daily 7AM – 8PM<br>No Rush Orders</div>
+  </div>
+  <div class="contact-item">
+    <div class="contact-icon">📱</div>
+    <div class="contact-label">Facebook</div>
+    <div class="contact-value">@NelsonsLechonUlo</div>
+  </div>
+</div>
+
+<footer>
+  <span>Nelson's Lechon Ulo</span> &nbsp;·&nbsp; Fired the Traditional Way &nbsp;·&nbsp; © 2026
+</footer>
+
+<script>
+  function submitOrder() {
+    const name = document.getElementById('o-name').value.trim();
+    const phone = document.getElementById('o-phone').value.trim();
+    const date = document.getElementById('o-date').value;
+    const hasItem = ['o-item1','o-item2','o-item3','o-item4','o-item5'].some(id => document.getElementById(id).value !== '');
+    if (!name || !phone || !date || !hasItem) {
+      alert('Please fill in your name, phone, at least one item, and a pickup/delivery date.');
+      return;
+    }
+    const msg = document.getElementById('order-success');
+    msg.style.display = 'block';
+    msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById('o-name').value = '';
+    document.getElementById('o-phone').value = '';
+    document.getElementById('o-date').value = '';
+    document.getElementById('o-notes').value = '';
+    for (let i = 1; i <= 5; i++) {
+      document.getElementById('o-item' + i).selectedIndex = 0;
+      document.getElementById('o-qty' + i).value = 1;
+    }
+  }
+</script>
+</body>
+</html>
